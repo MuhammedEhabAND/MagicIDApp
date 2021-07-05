@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText et ;
@@ -21,25 +22,31 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ID = et.getText().toString();
-                String dao = ID.substring(0 ,6 );
-                int gender =Integer.parseInt(Character.toString(ID.charAt(6)));
-                String sGender ;
-                if  (gender < 5){
-                    sGender ="Female";
+                if(et.getText().toString().trim().equalsIgnoreCase("")){
+                    et.setError("ID Number cannot be empty");
+                    Toast.makeText(MainActivity.this, "the field cannot be empty", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    sGender ="Male";
+                    String ID = et.getText().toString();
+                    String dao = ID.substring(0 ,6 );
+                    int gender =Integer.parseInt(Character.toString(ID.charAt(6)));
+                    String sGender ;
+                    if  (gender < 5){
+                        sGender ="Female";
 
-                }
-                int nationality = Integer.parseInt(Character.toString((ID.charAt(10))));
-                String sNationality ;
-                if(nationality == 0)
-                    sNationality = "SA Citizen";
-                else
-                    sNationality = "Permanent Resident";
-                tv.setText("Date of Birth : "+dao + "\n" + "Gender : " +sGender+ "\n" +"Nationality : "+sNationality );
-                tv.setVisibility(View.VISIBLE);
+                    }else{
+                        sGender ="Male";
+
+                    }
+                    int nationality = Integer.parseInt(Character.toString((ID.charAt(10))));
+                    String sNationality ;
+                    if(nationality == 0)
+                        sNationality = "SA Citizen";
+                    else
+                        sNationality = "Permanent Resident";
+                    tv.setText("Date of Birth : "+dao + "\n" + "Gender : " +sGender+ "\n" +"Nationality : "+sNationality );
+                    tv.setVisibility(View.VISIBLE);
+                    }
             }
         });
     }
